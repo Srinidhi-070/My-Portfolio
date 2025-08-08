@@ -16,7 +16,7 @@
 <div align="center">
 
 ### 🌟 **Live Demo**
-[![Portfolio Website](https://img.shields.io/badge/Visit_Portfolio-38B2AC?style=for-the-badge&logo=vercel&logoColor=white)](https://my-portfolio-six-sooty-42.vercel.app)
+[![Portfolio Website](https://img.shields.io/badge/Visit_Portfolio-38B2AC?style=for-the-badge&logo=vercel&logoColor=white)](https://my-portfolio-jqlp60458-srinidhi-070s-projects.vercel.app/)
 
 </div>
 
