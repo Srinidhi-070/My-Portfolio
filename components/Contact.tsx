@@ -58,6 +58,10 @@ const Contact: React.FC = () => {
             setMessage('');
         } catch (err) {
             console.error('Email send error:', err);
+            // Log the full error object for debugging
+            if (err && typeof err === 'object') {
+                console.error('Full error object:', JSON.stringify(err, null, 2));
+            }
             setError('Failed to send message. Please try again or contact me directly via email.');
         } finally {
             setIsLoading(false);
