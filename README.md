@@ -16,7 +16,7 @@
 <div align="center">
 
 ### 🌟 **Live Demo**
-[![Portfolio Website](https://img.shields.io/badge/Visit_Portfolio-38B2AC?style=for-the-badge&logo=vercel&logoColor=white)](https://my-portfolio-jqlp60458-srinidhi-070s-projects.vercel.app/)
+[![Portfolio Website](https://img.shields.io/badge/Visit_Portfolio-38B2AC?style=for-the-badge&logo=vercel&logoColor=white)](https://my-portfolio-six-sooty-42.vercel.app/)
 
 </div>
 
@@ -26,10 +26,10 @@
 
 <div align="center">
 
-![AI Engineer](https://img.shields.io/badge/AI_Engineer-Expert-red?style=for-the-badge&logo=robot)
-![ML Developer](https://img.shields.io/badge/ML_Developer-Advanced-orange?style=for-the-badge&logo=python)
+![AI Engineer](https://img.shields.io/badge/AI_Engineer-Intermediate-red?style=for-the-badge&logo=robot)
+![ML Developer](https://img.shields.io/badge/ML_Developer-Intermediate-orange?style=for-the-badge&logo=python)
 ![Full Stack](https://img.shields.io/badge/Full_Stack-Intermediate-yellow?style=for-the-badge&logo=javascript)
-![Computer Vision](https://img.shields.io/badge/Computer_Vision-Specialist-green?style=for-the-badge&logo=opencv)
+![Computer Vision](https://img.shields.io/badge/Computer_Vision-Intermedite-green?style=for-the-badge&logo=opencv)
 
 </div>
 
