@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
 
         try {
             // EmailJS configuration
-            const serviceId = 'service_6ec63sp';
+            const serviceId = 'service_tgxlm3y';
             const templateId = 'template_3hhe3mr';
             const publicKey = '2UvTD2Hyc9lRgX3KX';
 
