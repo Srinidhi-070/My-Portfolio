@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { CONTACT_INFO } from '../constants';
 import Button from './ui/Button';
 import AnimatedSection from './ui/AnimatedSection';
@@ -19,25 +20,45 @@ const TextArea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = (p
     />
 );
 
-
 const Contact: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [messageSent, setMessageSent] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        const subject = encodeURIComponent(`Contact from Portfolio - ${name}`);
-        const body = encodeURIComponent(`Name: ${name}\nFrom: ${email}\n\nMessage:\n${message}`);
-        
-        window.location.href = `mailto:${CONTACT_INFO.email}?subject=${subject}&body=${body}`;
-        
-        setMessageSent(true);
-        setName('');
-        setEmail('');
-        setMessage('');
+        setIsLoading(true);
+        setError('');
+
+        try {
+            // EmailJS configuration
+            // You'll need to replace these with your actual EmailJS credentials
+            const serviceId = 'YOUR_EMAILJS_SERVICE_ID'; // Replace with your service ID
+            const templateId = 'YOUR_EMAILJS_TEMPLATE_ID'; // Replace with your template ID
+            const publicKey = 'YOUR_EMAILJS_PUBLIC_KEY'; // Replace with your public key
+
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                message: message,
+                to_email: CONTACT_INFO.email,
+            };
+
+            await emailjs.send(serviceId, templateId, templateParams, publicKey);
+            
+            setMessageSent(true);
+            setName('');
+            setEmail('');
+            setMessage('');
+        } catch (err) {
+            console.error('Email send error:', err);
+            setError('Failed to send message. Please try again or contact me directly via email.');
+        } finally {
+            setIsLoading(false);
+        }
     };
     
     useEffect(() => {
@@ -71,21 +92,71 @@ const Contact: React.FC = () => {
                 >
                   <div>
                     <label htmlFor="name" className="sr-only">Name</label>
-                    <Input id="name" name="name" type="text" placeholder="Your Name" required value={name} onChange={e => setName(e.target.value)} />
+                    <Input 
+                        id="name" 
+                        name="name" 
+                        type="text" 
+                        placeholder="Your Name" 
+                        required 
+                        value={name} 
+                        onChange={e => setName(e.target.value)}
+                        disabled={isLoading}
+                    />
                   </div>
                   <div>
                     <label htmlFor="email" className="sr-only">Email</label>
-                    <Input id="email" name="email" type="email" placeholder="Your Email" required value={email} onChange={e => setEmail(e.target.value)} />
+                    <Input 
+                        id="email" 
+                        name="email" 
+                        type="email" 
+                        placeholder="Your Email" 
+                        required 
+                        value={email} 
+                        onChange={e => setEmail(e.target.value)}
+                        disabled={isLoading}
+                    />
                   </div>
                   <div>
                     <label htmlFor="message" className="sr-only">Message</label>
-                    <TextArea id="message" name="message" rows={5} placeholder="Your Message" required value={message} onChange={e => setMessage(e.target.value)} />
+                    <TextArea 
+                        id="message" 
+                        name="message" 
+                        rows={5} 
+                        placeholder="Your Message" 
+                        required 
+                        value={message} 
+                        onChange={e => setMessage(e.target.value)}
+                        disabled={isLoading}
+                    />
                   </div>
-                  <Button type="submit" variant="primary" className="w-full">
-                    Send Message
+                  
+                  {error && (
+                    <div className="text-red-500 text-sm text-center bg-red-50 dark:bg-red-900/20 p-3 rounded-md">
+                        {error}
+                    </div>
+                  )}
+                  
+                  <Button 
+                    type="submit" 
+                    variant="primary" 
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </div>
+                    ) : (
+                      'Send Message'
+                    )}
                   </Button>
+                  
                   <p className="text-center mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-                      This will open your default email client.
+                      Your message will be sent directly to my inbox.
                   </p>
                 </motion.form>
             ) : (
@@ -100,7 +171,7 @@ const Contact: React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <h3 className="text-xl font-semibold text-black dark:text-white">Message Sent!</h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 mt-2">Thank you for reaching out.</p>
+                    <p className="text-neutral-600 dark:text-neutral-400 mt-2">Thank you for reaching out. I'll get back to you soon!</p>
                 </motion.div>
             )}
             </AnimatePresence>
