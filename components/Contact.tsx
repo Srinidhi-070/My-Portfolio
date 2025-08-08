@@ -6,6 +6,9 @@ import { CONTACT_INFO } from '../constants';
 import Button from './ui/Button';
 import AnimatedSection from './ui/AnimatedSection';
 
+// Initialize EmailJS
+emailjs.init('2UvTD2Hyc9lRgX3KX');
+
 const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (props) => (
     <input 
         {...props}
@@ -46,6 +49,7 @@ const Contact: React.FC = () => {
                 to_email: CONTACT_INFO.email,
             };
 
+            console.log('Sending email with:', { serviceId, templateId, publicKey, templateParams });
             await emailjs.send(serviceId, templateId, templateParams, publicKey);
             
             setMessageSent(true);
